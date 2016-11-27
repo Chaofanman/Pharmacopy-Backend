@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	f, err := os.Open("InputFiles/db3.csv")
+	f, err := os.Open("input_files/db3.csv")
 	utils.Check(err)
 
 	parser.CSVParser(f)
