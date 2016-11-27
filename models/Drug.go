@@ -1,7 +1,10 @@
 package models
 
+import "github.com/jinzhu/gorm"
+
 //Drug drug information
 type Drug struct {
+	gorm.Model
 	Name                  string `json:"name"`
 	Indication            string `json:"indication"`
 	Classification        string `json:"classification"`
