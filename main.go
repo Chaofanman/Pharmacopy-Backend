@@ -21,7 +21,7 @@ func main() {
 
 	database := db.InitDB()
 
-	fmt.Println("Database: ", database)
+	// fmt.Println("Database: ", database)
 
 	router := gin.Default()
 	router.Use(gin.Logger())
