@@ -11,8 +11,8 @@ import (
 
 var db *gorm.DB
 
-//InitDB returns a postgres database
-func InitDB() *gorm.DB {
+//Init returns a postgres database
+func Init() *gorm.DB {
 	url := os.Getenv("DATABASE_URL") + "?sslmode=disable"
 	fmt.Println("URL: ", url)
 	db, err := gorm.Open("postgres", url)
@@ -25,10 +25,13 @@ func InitDB() *gorm.DB {
 		&models.Drug{},
 	)
 
+	fmt.Println("DB in Init: ", db)
 	return db
 }
 
-//GetDB returns db
-func GetDB() *gorm.DB {
-	return db
-}
+//SaveDrug saves Drug model in postgres database
+// func (db *gorm.DB) SaveDrug(drug models.Drug) (err error) {
+// 	fmt.Println("DB in SaveDrug: ", db)
+// 	err = db.Create(&drug).Error
+// 	return err
+// }
