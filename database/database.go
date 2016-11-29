@@ -28,10 +28,3 @@ func Init() *gorm.DB {
 	fmt.Println("DB in Init: ", db)
 	return db
 }
-
-//SaveDrug saves Drug model in postgres database
-// func (db *gorm.DB) SaveDrug(drug models.Drug) (err error) {
-// 	fmt.Println("DB in SaveDrug: ", db)
-// 	err = db.Create(&drug).Error
-// 	return err
-// }

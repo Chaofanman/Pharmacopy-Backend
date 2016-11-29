@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"fmt"
+	"sort"
 
 	"github.com/chaofanman/pharmacopy-rest/database"
 	"github.com/chaofanman/pharmacopy-rest/models"
@@ -13,20 +13,20 @@ type DrugController struct{}
 
 //GetDrugs queries all drugs
 func (ctrl DrugController) GetDrugs(c *gin.Context) {
-	fmt.Println("AJSDFJASDLFJAL;SKJF;LDSJFLS")
-	var drugs []models.Drug
+	var drugs models.Drugs
 
 	db := database.Init()
 
-	c.JSON(200, "Here")
-	err := db.Find(&drugs).Error
+	err := db.Table("drugs").Select("id, name").Scan(&drugs).Error
+	// err := db.Select("id, name").Find()(&drugs).Error
 
 	if err != nil {
-		fmt.Println(err)
 		c.JSON(400, gin.H{
 			"Error": "Error finding drugs",
 		})
 	}
+
+	sort.Sort(drugs)
 
 	c.JSON(200, drugs)
 }

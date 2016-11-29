@@ -22,8 +22,8 @@ func CSVParser(f *os.File) {
 		record, err := r.Read()
 
 		if err == io.EOF {
-			for iter := range drugs {
-				db.Create(&drugs[iter])
+			for i := range drugs {
+				db.Create(&drugs[i])
 			}
 			break
 		}
