@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/chaofanman/pharmacopy-rest/controllers"
 	db "github.com/chaofanman/pharmacopy-rest/database"
 	"github.com/chaofanman/pharmacopy-rest/parser"
 	"github.com/chaofanman/pharmacopy-rest/utils"
@@ -35,6 +36,13 @@ func main() {
 			"Version": 1.0,
 		})
 	})
+
+	drugs := new(controllers.DrugController)
+
+	v1 := router.Group("api/v1")
+	{
+		v1.GET("/drugs", drugs.GetDrugs)
+	}
 
 	router.Run(":" + port)
 }
