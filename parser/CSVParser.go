@@ -24,6 +24,7 @@ func CSVParser(f *os.File) {
 		if err == io.EOF {
 			for i := range drugs {
 				db.Create(&drugs[i])
+				db.Exec("DELETE FROM drugs WHERE id IN (SELECT id FROM (SELECT id, ROW_NUMBER() OVER (partition BY name, indication, classification, dosage_form_and_strength, adverse_drug_effects, precaution, contraindications, pregnancy_category, dosage_regimen, food_intake ORDER BY id) AS rnum FROM drugs) t WHERE t.rnum > 1);")
 			}
 			break
 		}
