@@ -3,7 +3,6 @@ package parser
 import (
 	"bufio"
 	"encoding/csv"
-	"fmt"
 	"io"
 	"os"
 
@@ -14,7 +13,6 @@ import (
 //CSVParser parses given CSV file
 func CSVParser(f *os.File) {
 	db := database.Init()
-	fmt.Println("Database in CSV Parser: ", db)
 	r := csv.NewReader(bufio.NewReader(f))
 	var Drug models.Drug
 	var drugs []models.Drug

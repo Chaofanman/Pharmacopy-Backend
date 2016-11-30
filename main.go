@@ -1,36 +1,27 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 
 	"github.com/chaofanman/pharmacopy-rest/controllers"
-	db "github.com/chaofanman/pharmacopy-rest/database"
 	"github.com/chaofanman/pharmacopy-rest/parser"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	f, err := os.Open("input_files/db3.csv")
-	if err != nil {
-		log.Fatalln("File can't be opened")
-	}
-	parser.CSVParser(f)
+	parser.ParseFile("input_files/db1.csv")
+	parser.ParseFile("input_files/db2.csv")
+	parser.ParseFile("input_files/db3.csv")
+
 	port := os.Getenv("PORT")
 
 	if port == "" {
 		log.Fatal("$PORT must be set")
 	}
 
-	database := db.Init()
-
-	fmt.Println("Database: ", database)
-
 	router := gin.Default()
 	router.Use(gin.Logger())
-
-	fmt.Println("Port: ", port)
 
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{

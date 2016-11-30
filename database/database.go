@@ -1,7 +1,6 @@
 package database
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/chaofanman/pharmacopy-rest/models"
@@ -14,7 +13,6 @@ var db *gorm.DB
 //Init returns a postgres database
 func Init() *gorm.DB {
 	url := os.Getenv("DATABASE_URL") + "?sslmode=disable"
-	fmt.Println("URL: ", url)
 	db, err := gorm.Open("postgres", url)
 
 	if err != nil {
@@ -25,6 +23,5 @@ func Init() *gorm.DB {
 		&models.Drug{},
 	)
 
-	fmt.Println("DB in Init: ", db)
 	return db
 }
