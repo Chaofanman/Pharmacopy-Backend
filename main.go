@@ -8,13 +8,14 @@ import (
 	"github.com/chaofanman/pharmacopy-rest/controllers"
 	db "github.com/chaofanman/pharmacopy-rest/database"
 	"github.com/chaofanman/pharmacopy-rest/parser"
-	"github.com/chaofanman/pharmacopy-rest/utils"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	f, err := os.Open("input_files/db3.csv")
-	utils.Check(err)
+	if err != nil {
+		log.Fatalln("File can't be opened")
+	}
 	parser.CSVParser(f)
 	port := os.Getenv("PORT")
 

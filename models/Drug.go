@@ -18,6 +18,21 @@ type Drug struct {
 	FoodIntake            string `json:"food_intake"`
 }
 
+//Drugs slice of drug
+type Drugs []Drug
+
+func (slice Drugs) Len() int {
+	return len(slice)
+}
+
+func (slice Drugs) Less(i, j int) bool {
+	return slice[i].Name < slice[j].Name
+}
+
+func (slice Drugs) Swap(i, j int) {
+	slice[i], slice[j] = slice[j], slice[i]
+}
+
 //SetName sets drug name
 func (d *Drug) SetName(name string) {
 	d.Name = name

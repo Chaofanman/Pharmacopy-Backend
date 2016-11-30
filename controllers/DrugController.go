@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"sort"
 
 	"github.com/chaofanman/pharmacopy-rest/database"
@@ -17,13 +18,23 @@ func (ctrl DrugController) GetDrugs(c *gin.Context) {
 
 	db := database.Init()
 
-	err := db.Table("drugs").Select("id, name").Scan(&drugs).Error
-	// err := db.Select("id, name").Find()(&drugs).Error
+	letter := c.Query("letter")
+	fmt.Println("Letter: ", letter)
 
-	if err != nil {
-		c.JSON(400, gin.H{
-			"Error": "Error finding drugs",
-		})
+	if letter == "" {
+		err := db.Table("drugs").Select("id, name").Scan(&drugs).Error
+		if err != nil {
+			c.JSON(400, gin.H{
+				"Error": "Error finding all drugs",
+			})
+		}
+	} else {
+		err := db.Where("name LIKE ?", letter+"%").Select("id, name").Find(&drugs).Error
+		if err != nil {
+			c.JSON(400, gin.H{
+				"Error": "Error finding drugs with letter " + letter,
+			})
+		}
 	}
 
 	sort.Sort(drugs)
