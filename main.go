@@ -43,6 +43,7 @@ func main() {
 	v1 := router.Group("api/v1")
 	{
 		v1.POST("/drugs", drugs.GetDrugs)
+		v1.POST("/drugs/:name", drugs.GetDrug)
 	}
 
 	router.Run(":" + port)
