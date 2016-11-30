@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/chaofanman/pharmacopy-rest/controllers"
+	"github.com/chaofanman/pharmacopy-rest/cors"
 	"github.com/chaofanman/pharmacopy-rest/parser"
 	"github.com/gin-gonic/gin"
 )
@@ -22,6 +23,7 @@ func main() {
 
 	router := gin.Default()
 	router.Use(gin.Logger())
+	router.Use(cors.Init())
 
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
@@ -35,6 +37,9 @@ func main() {
 	{
 		v1.POST("/drugs", drugs.GetDrugs)
 		v1.POST("/drugs/:name", drugs.GetDrug)
+
+		v1.OPTIONS("/drugs", cors.Options)
+		v1.OPTIONS("/drugs/:name", cors.Options)
 	}
 
 	router.Run(":" + port)
